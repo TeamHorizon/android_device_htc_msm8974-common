@@ -106,8 +106,7 @@ PRODUCT_COPY_FILES += \
 
 # Bluetooth
 PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0-impl \
-    libbt-vendor
+    android.hardware.bluetooth@1.0-impl
 
 # Camera shim
 PRODUCT_PACKAGES += \
@@ -125,7 +124,14 @@ PRODUCT_PACKAGES += \
 
 # Gello
 PRODUCT_PACKAGES += \
-    Gello
+    android.hardware.gnss@1.0-impl \
+    gps.msm8974
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/gps/etc/flp.conf:system/etc/flp.conf \
+    $(LOCAL_PATH)/gps/etc/gps.conf:system/etc/gps.conf \
+    $(LOCAL_PATH)/gps/etc/izat.conf:system/etc/izat.conf \
+    $(LOCAL_PATH)/gps/etc/sap.conf:system/etc/sap.conf
 
 # Graphics
 PRODUCT_PACKAGES += \
@@ -238,6 +244,10 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermanager.xml:system/etc/thermanager.xml
+
+# USB
+PRODUCT_PACKAGES += \
+    android.hardware.usb@1.0-service
 
 # Vibrator
 PRODUCT_PACKAGES += \
