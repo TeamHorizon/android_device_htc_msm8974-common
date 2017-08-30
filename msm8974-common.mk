@@ -123,11 +123,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libshim_log
 
-# Gello
-PRODUCT_PACKAGES += \
-    android.hardware.gnss@1.0-impl \
-    gps.msm8974
-
+# GPS
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/etc/flp.conf:system/etc/flp.conf \
     $(LOCAL_PATH)/gps/etc/gps.conf:system/etc/gps.conf \
