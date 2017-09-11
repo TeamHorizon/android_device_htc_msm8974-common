@@ -1,5 +1,6 @@
 #
-# Copyright (C) 2015 The CyanogenMod Project
+# Copyright (C) 2015-2016 The CyanogenMod Project
+#               2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,7 +25,8 @@ $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay
+    $(LOCAL_PATH)/overlay \
+    $(LOCAL_PATH)/overlay-lineage
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920
@@ -35,7 +37,7 @@ PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 # FlipFlap
-#PRODUCT_PACKAGES += FlipFlap
+PRODUCT_PACKAGES += FlipFlap
 
 # Gesture Handler
 #PRODUCT_PACKAGES += GestureHandler
@@ -124,6 +126,9 @@ PRODUCT_PACKAGES += \
     libshim_log
 
 # GPS
+PRODUCT_PACKAGES += \
+    gps.msm8974
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/etc/flp.conf:system/etc/flp.conf \
     $(LOCAL_PATH)/gps/etc/gps.conf:system/etc/gps.conf \
@@ -184,6 +189,7 @@ PRODUCT_PACKAGES += \
 # Media config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/configs/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
 
 PRODUCT_COPY_FILES += \
@@ -229,6 +235,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libcnefeatureconfig \
     librmnetctl \
+    libshim_ril \
     libxml2
 
 # Sensors
