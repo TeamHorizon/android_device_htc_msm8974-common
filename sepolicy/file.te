@@ -1,4 +1,8 @@
-type hcheck_data_file, file_type;
-type debugfs_heaps_system, fs_type, debugfs_type;
-type sysfs_gesture, fs_type, sysfs_type;
-type sysfs_max_gpuclk, fs_type, sysfs_type;
+# debugfs
+type debugfs_ion, fs_type, debugfs_type;
+
+# procfs
+type proc_wcnss_service, fs_type;
+
+# sysfs
+type sysfs_sensors, sysfs_type, fs_type;
