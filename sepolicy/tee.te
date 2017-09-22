@@ -1,3 +1,0 @@
-allow tee hcheck_data_file:dir create_dir_perms;
-allow tee hcheck_data_file:file create_file_perms;
-allow tee system_data_file:dir create_dir_perms;
