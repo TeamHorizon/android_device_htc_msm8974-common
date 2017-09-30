@@ -244,7 +244,7 @@ service hcheck /vendor/bin/hcheck
     group system
     oneshot
 
-service hciattach /vendor/bin/init.qcom.bt.sh
+service hciattach /vendor/bin/hci_qcomm_init -e
     class late_start
     user bluetooth
     group bluetooth net_bt_admin
@@ -330,6 +330,7 @@ service wcnss-service /vendor/bin/wcnss_service
 ## Properties start here
 on property:bluetooth.hciattach=true
     start hciattach
+    setprop bluetooth.status on
 
 on property:bluetooth.hciattach=false
     setprop bluetooth.status off
