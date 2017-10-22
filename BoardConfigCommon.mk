@@ -53,10 +53,9 @@ BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x02008000 --tags_offset 0x01e00000
 TARGET_KERNEL_SOURCE := kernel/htc/msm8974
-
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
-
+BOARD_KERNEL_IMAGE_NAME := zImage
 # Audio
 BOARD_USES_ALSA_AUDIO := true
 AUDIO_FEATURE_ENABLED_COMPRESS_VOIP := false
@@ -104,9 +103,6 @@ TARGET_RIL_VARIANT := caf
 # SDClang
 TARGET_USE_SDCLANG := true
 
-# SELinux
-include device/qcom/sepolicy/sepolicy.mk
-BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
 
 # Time services
 BOARD_USES_QC_TIME_SERVICES := true
@@ -136,7 +132,7 @@ TARGET_USERIMAGES_USE_F2FS := true
 
 # SELinux
 #include device/qcom/sepolicy/sepolicy.mk
-BOARD_SEPOLICY_DIRS += device/htc/msm8974-common/sepolicy
+#BOARD_SEPOLICY_DIRS += device/htc/msm8974-common/sepolicy
 
 
 # Recovery
