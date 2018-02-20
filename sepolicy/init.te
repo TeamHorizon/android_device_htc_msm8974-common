@@ -1,1 +1,1 @@
-allow init debugfs:file write;
+set_prop(init, wcnss_prop)

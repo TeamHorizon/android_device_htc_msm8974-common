@@ -59,7 +59,10 @@ BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x02008000 -
 TARGET_KERNEL_SOURCE := kernel/htc/msm8974
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
-BOARD_KERNEL_IMAGE_NAME := zImage
+
+# ANT+
+BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
+
 # Audio
 BOARD_USES_ALSA_AUDIO := true
 AUDIO_FEATURE_ENABLED_COMPRESS_VOIP := false
@@ -68,6 +71,7 @@ AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 AUDIO_FEATURE_ENABLED_NEW_SAMPLE_RATE := true
 AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
 USE_CUSTOM_AUDIO_POLICY := 1
+USE_XML_AUDIO_POLICY_CONF := 1
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH_QCOM := true
@@ -80,6 +84,19 @@ TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 
 # Charge mode
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/htc_lpm/lpm_mode
+
+# Dexpreopt
+ifeq ($(HOST_OS),linux)
+  ifneq ($(TARGET_BUILD_VARIANT),eng)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+      WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := true
+    endif
+  endif
+endif
+
+# Filesystem
+TARGET_FS_CONFIG_GEN := $(PLATFORM_PATH)/config.fs
 
 # FM Radio
 AUDIO_FEATURE_ENABLED_FM_POWER_OPT := true
@@ -95,11 +112,21 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 
+# HIDL
+DEVICE_MANIFEST_FILE := $(PLATFORM_PATH)/manifest.xml
+DEVICE_MATRIX_FILE := $(PLATFORM_PATH)/compatibility_matrix.xml
+
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
+# Lineage Hardware
+BOARD_HARDWARE_CLASS += \
+    $(PLATFORM_PATH)/lineagehw
+
 # Power
-TARGET_POWERHAL_VARIANT := qcom
+TARGET_HAS_LEGACY_POWER_STATS := true
+TARGET_HAS_NO_WIFI_STATS := true
+TARGET_USES_INTERACTION_BOOST := true
 
 # RIL
 TARGET_RIL_VARIANT := caf
@@ -107,9 +134,20 @@ TARGET_RIL_VARIANT := caf
 # SDClang
 TARGET_USE_SDCLANG := true
 
+# SELinux
+include device/qcom/sepolicy/sepolicy.mk
+include device/qcom/sepolicy/legacy-sepolicy.mk
+BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
 
-# Time services
-BOARD_USES_QC_TIME_SERVICES := true
+# Shims
+TARGET_LD_SHIM_LIBS := \
+    /system/lib/liblog.so|libshim_log.so \
+    /system/vendor/lib/hw/camera.vendor.msm8974.so|libshim_camera.so \
+    /system/vendor/lib/libril.so|libshim_ril.so \
+    /system/vendor/lib/libril-qc-qmi-1.so|libshim_ril.so
+
+# USB
+TARGET_USES_LEGACY_ADB_INTERFACE := true
 
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
@@ -143,4 +181,4 @@ TARGET_USERIMAGES_USE_F2FS := true
 BOARD_GLOBAL_CFLAGS := -DBOARD_RECOVERY_BLDRMSG_OFFSET=2048
 TARGET_RECOVERY_DEVICE_DIRS += $(PLATFORM_PATH)
 TARGET_RECOVERY_DEVICE_MODULES += chargeled
-TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
+TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.full
