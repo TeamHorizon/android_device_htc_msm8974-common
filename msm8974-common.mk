@@ -141,7 +141,7 @@ PRODUCT_PACKAGES += \
 
 # HTC logging symbols
 PRODUCT_PACKAGES += \
-    libshim_log
+    liblog_htc
 
 # GPS
 PRODUCT_PACKAGES += \
