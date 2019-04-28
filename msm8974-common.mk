@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2015-2016 The CyanogenMod Project
-#               2017-2018 The LineageOS Project
+#               2017-2019 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
 
 # System properties
 -include $(LOCAL_PATH)/system_prop.mk
@@ -26,6 +25,9 @@ $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
    # $(LOCAL_PATH)/overlay-lineage
+
+PRODUCT_ENFORCE_RRO_TARGETS := \
+    framework-res
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920
@@ -48,6 +50,10 @@ PRODUCT_PACKAGES += \
     init.qcom.power.rc \
     init.qcom.usb.rc \
     ueventd.qcom.rc
+
+# QCOM init scripts
+PRODUCT_PACKAGES += \
+    init.qcom.bt.sh
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -243,7 +249,7 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-service-qti
+    android.hardware.power@1.1-service-qti
 
 # RenderScript HAL
 PRODUCT_PACKAGES += \
@@ -272,9 +278,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermanager.xml:system/vendor/etc/thermanager.xml
 
+# Touch HAL
+PRODUCT_PACKAGES += \
+    vendor.lineage.touch@1.0-service.htc_msm8974
+
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service
+    android.hardware.usb@1.0-service.basic
 
 # Vibrator
 PRODUCT_PACKAGES += \
@@ -286,7 +296,6 @@ PRODUCT_PACKAGES += \
     hostapd \
     libwcnss_qmi \
     libwpa_client \
-    wificond \
     wpa_supplicant \
     wpa_supplicant.conf \
     wcnss_service

@@ -5,26 +5,30 @@
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
     af.fast_track_multiplier=1 \
-    audio_hal.period_size=192 \
-    av.offload.enable=false \
-    tunnel.audio.encode=true \
-    use.voice.path.for.pcm.voip=false
-
-# fluencetype can be "fluence" or "fluencepro" or "none"
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qc.sdk.audio.fluencetype=fluence
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.audio.fluence.voicecall=true \
-    persist.audio.fluence.speaker=false
+    audio.offload.disable=true \
+    persist.vendor.audio.fluence.voicecall=true \
+    persist.vendor.audio.fluence.speaker=false \
+    ro.vendor.audio.sdk.fluencetype=fluence \
+    vendor.audio_hal.period_size=192 \
+    vendor.audio.tunnel.encode=true \
+    vendor.voice.path.for.pcm.voip=false
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
-    qcom.bluetooth.soc=smd \
     ro.bluetooth.dun=true \
     ro.bluetooth.hfp.ver=1.6 \
     ro.bluetooth.sap=true \
+    ro.bt.bdaddr_path=/sys/module/htc_bdaddress/parameters/bdaddress \
     ro.qualcomm.bt.hci_transport=smd
+
+# Dalvik heap
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.heapstartsize=16m \
+    dalvik.vm.heapgrowthlimit=192m \
+    dalvik.vm.heapsize=512m \
+    dalvik.vm.heaptargetutilization=0.75 \
+    dalvik.vm.heapminfree=2m \
+    dalvik.vm.heapmaxfree=8m
 
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -51,8 +55,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
     media.aac_51_output_enabled=true \
-    mm.enable.smoothstreaming=true \
-    persist.media.treble_omx=false
+    mm.enable.smoothstreaming=true
+
+# Memory optimizations
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.qti.am.reschedule_service=true \
+    ro.vendor.qti.sys.fw.bservice_enable=true
 
 # NFC
 PRODUCT_PROPERTY_OVERRIDES += \
